@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>vanesafrz — UX/UI & Product Designer</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #0038FF;
+    --blue-light: #3D6BFF;
+    --blue-hover: #0030DD;
+    --blue-glow: rgba(0, 56, 255, 0.10);
+    --blue-glow-strong: rgba(0, 56, 255, 0.18);
+    --daisy-yellow: #FFD43B;
+    --black: #0A0A0A;
+    --white: #FAFAFA;
+    --gray-50: #F8F8F8;
+    --gray-100: #F4F4F5;
+    --gray-200: #E4E4E7;
+    --gray-300: #D4D4D8;
+    --gray-400: #A1A1AA;
+    --gray-500: #71717A;
+    --gray-600: #52525B;
+    --gray-700: #3F3F46;
+    --radius: 16px;
+    --radius-lg: 24px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--white);
+    color: var(--black);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: var(--blue);
+    color: white;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* ─── NAV ─── */
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.4s ease;
+  }
+
+  .nav.scrolled {
+    background: rgba(10, 10, 10, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 14px 40px;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.05);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    color: white;
+    display: flex;
+    align-items: baseline;
+  }
+
+  .nav-logo .blue { color: var(--blue); }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.6);
+    transition: color 0.3s;
+    letter-spacing: 0.5px;
+  }
+
+  .nav-links a:hover { color: white; }
+
+  .nav-cta {
+    font-size: 13px;
+    font-weight: 600;
+    color: white !important;
+    background: var(--blue);
+    padding: 8px 20px;
+    border-radius: 100px;
+    transition: all 0.3s;
+  }
+
+  .nav-cta:hover {
+    background: var(--blue-hover);
+    transform: translateY(-1px);
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background: var(--black);
+    overflow: hidden;
+    padding: 120px 40px 80px;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, var(--blue) 0%, transparent 65%);
+    opacity: 0.08;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: heroPulse 6s ease-in-out infinite;
+  }
+
+  @keyframes heroPulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.08; }
+    50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.14; }
+  }
+
+  .hero-content {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+  }
+
+  .hero-claim-top {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(16px, 2vw, 20px);
+    font-weight: 400;
+    color: var(--gray-400);
+    margin-bottom: 24px;
+    letter-spacing: 1px;
+    animation: fadeUp 0.8s ease-out;
+  }
+
+  .hero-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(52px, 9vw, 100px);
+    line-height: 1;
+    color: white;
+    letter-spacing: -2px;
+    animation: fadeUp 0.8s ease-out 0.1s both;
+  }
+
+  .hero-name .blue { color: var(--blue); }
+
+  .hero-claim {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: clamp(24px, 3.5vw, 42px);
+    line-height: 1.2;
+    color: white;
+    margin-top: 32px;
+    animation: fadeUp 0.8s ease-out 0.2s both;
+  }
+
+  .hero-claim em {
+    font-style: normal;
+    color: var(--blue);
+  }
+
+  .hero-sub {
+    font-size: 17px;
+    color: var(--gray-500);
+    margin-top: 20px;
+    font-weight: 400;
+    line-height: 1.6;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: fadeUp 0.8s ease-out 0.3s both;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 40px;
+    animation: fadeUp 0.8s ease-out 0.4s both;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    background: var(--blue);
+    padding: 14px 32px;
+    border-radius: 100px;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-primary:hover {
+    background: var(--blue-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 56, 255, 0.3);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--gray-400);
+    background: transparent;
+    padding: 14px 32px;
+    border-radius: 100px;
+    border: 1px solid var(--gray-700);
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+
+  .btn-secondary:hover {
+    color: white;
+    border-color: var(--gray-500);
+    transform: translateY(-2px);
+  }
+
+  .hero-scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    animation: fadeUp 0.8s ease-out 0.6s both;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--gray-600), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── Frizi floating in hero ─── */
+  .hero-frizi {
+    position: absolute;
+    bottom: 80px;
+    right: 8%;
+    opacity: 0.12;
+    animation: friziFloat 5s ease-in-out infinite;
+  }
+
+  @keyframes friziFloat {
+    0%, 100% { transform: translateY(0) rotate(-3deg); }
+    50% { transform: translateY(-12px) rotate(3deg); }
+  }
+
+  /* ─── PROJECTS SECTION ─── */
+  .projects-section {
+    padding: 120px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    margin-bottom: 64px;
+  }
+
+  .section-label {
+    font-family: 'Space Grotesk', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(32px, 4vw, 48px);
+    line-height: 1.15;
+    color: var(--black);
+  }
+
+  /* Project cards */
+  .project-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    margin-bottom: 32px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    border: 1px solid var(--gray-200);
+    cursor: pointer;
+    position: relative;
+  }
+
+  .project-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+  }
+
+  .project-card:hover .project-thumbnail {
+    transform: scale(1.03);
+  }
+
+  .project-thumbnail-wrap {
+    overflow: hidden;
+    position: relative;
+  }
+
+  .project-thumbnail {
+    width: 100%;
+    height: 100%;
+    min-height: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.6s ease;
+    position: relative;
+  }
+
+  .project-info {
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: white;
+  }
+
+  .project-tag {
+    font-family: 'Space Grotesk', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 16px;
+  }
+
+  .project-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 32px;
+    line-height: 1.15;
+    margin-bottom: 12px;
+    color: var(--black);
+  }
+
+  .project-desc {
+    font-size: 16px;
+    color: var(--gray-500);
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+
+  .project-tags span {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--gray-600);
+    background: var(--gray-100);
+    padding: 6px 14px;
+    border-radius: 100px;
+  }
+
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--blue);
+    transition: gap 0.3s ease;
+  }
+
+  .project-link:hover { gap: 12px; }
+
+  .project-link svg {
+    transition: transform 0.3s ease;
+  }
+
+  .project-link:hover svg {
+    transform: translateX(4px);
+  }
+
+  /* Alternate layout */
+  .project-card.reverse {
+    direction: rtl;
+  }
+
+  .project-card.reverse > * {
+    direction: ltr;
+  }
+
+  /* Coming soon cards */
+  .coming-soon-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 8px;
+  }
+
+  .coming-soon-card {
+    border: 1px dashed var(--gray-300);
+    border-radius: var(--radius-lg);
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 260px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .coming-soon-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 10px,
+      var(--gray-50) 10px,
+      var(--gray-50) 11px
+    );
+    opacity: 0.5;
+  }
+
+  .coming-soon-card:hover {
+    border-color: var(--blue);
+    background: var(--blue-glow);
+  }
+
+  .coming-soon-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .coming-soon-number {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 48px;
+    color: var(--gray-200);
+    margin-bottom: 8px;
+  }
+
+  .coming-soon-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gray-400);
+  }
+
+  /* ─── Museek project visuals ─── */
+  .museek-thumb {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    position: relative;
+  }
+
+  .museek-visual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .museek-icon {
+    width: 64px;
+    height: 64px;
+    background: var(--blue);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 30px rgba(0, 56, 255, 0.4);
+  }
+
+  .museek-phones {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .phone-mock {
+    width: 80px;
+    height: 150px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(4px);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .phone-mock.center {
+    width: 90px;
+    height: 165px;
+    margin-top: -10px;
+    background: rgba(255,255,255,0.12);
+    border-color: rgba(255,255,255,0.2);
+  }
+
+  .phone-notch {
+    width: 36px;
+    height: 4px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 4px;
+    margin: 8px auto 0;
+  }
+
+  .phone-content {
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 8px;
+  }
+
+  .phone-line {
+    height: 3px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 2px;
+  }
+
+  .phone-block {
+    height: 24px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 4px;
+    margin-top: 4px;
+  }
+
+  /* Korean Air project visuals */
+  .korean-thumb {
+    background: linear-gradient(135deg, #f0f4ff 0%, #dbeafe 50%, #bfdbfe 100%);
+    position: relative;
+  }
+
+  .korean-visual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .korean-badge {
+    background: white;
+    padding: 10px 20px;
+    border-radius: 100px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 14px;
+    color: #0057B8;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .korean-screens {
+    display: flex;
+    gap: 10px;
+  }
+
+  .korean-screen {
+    width: 100px;
+    height: 180px;
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+
+  .korean-screen.main {
+    width: 110px;
+    height: 195px;
+    margin-top: -8px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+  }
+
+  .korean-header {
+    height: 28px;
+    background: #0057B8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .korean-header-line {
+    width: 40px;
+    height: 3px;
+    background: rgba(255,255,255,0.5);
+    border-radius: 2px;
+  }
+
+  .korean-body {
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .korean-line {
+    height: 3px;
+    background: #E5E7EB;
+    border-radius: 2px;
+  }
+
+  .korean-card-el {
+    height: 30px;
+    background: #F3F4F6;
+    border-radius: 6px;
+  }
+
+  .korean-btn {
+    height: 14px;
+    background: #0057B8;
+    border-radius: 4px;
+    margin-top: 4px;
+    opacity: 0.8;
+  }
+
+  /* ─── ABOUT SECTION ─── */
+  .about-section {
+    padding: 120px 40px;
+    background: var(--black);
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-section::before {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, var(--blue) 0%, transparent 70%);
+    opacity: 0.06;
+    top: -100px;
+    right: -100px;
+  }
+
+  .about-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 80px;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .about-visual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .about-avatar-area {
+    width: 280px;
+    height: 320px;
+    background: var(--gray-700);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--gray-700);
+  }
+
+  .about-avatar-placeholder {
+    font-size: 14px;
+    color: var(--gray-500);
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  /* Frizi peeking from corner */
+  .about-frizi {
+    position: absolute;
+    bottom: -10px;
+    right: -10px;
+  }
+
+  .about-text .section-label {
+    color: var(--blue-light);
+  }
+
+  .about-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(28px, 3vw, 40px);
+    line-height: 1.2;
+    margin-bottom: 24px;
+    color: white;
+  }
+
+  .about-title em {
+    font-style: normal;
+    color: var(--blue);
+  }
+
+  .about-bio {
+    font-size: 16px;
+    color: var(--gray-400);
+    line-height: 1.8;
+    margin-bottom: 32px;
+  }
+
+  .about-details {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .about-detail {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--gray-400);
+  }
+
+  .about-detail-icon {
+    width: 32px;
+    height: 32px;
+    background: rgba(0, 56, 255, 0.12);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .about-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .skill-tag {
+    font-size: 13px;
+    font-weight: 500;
+    color: white;
+    background: var(--gray-700);
+    padding: 8px 16px;
+    border-radius: 100px;
+    border: 1px solid var(--gray-600);
+    transition: all 0.3s;
+  }
+
+  .skill-tag:hover {
+    border-color: var(--blue);
+    background: rgba(0, 56, 255, 0.12);
+  }
+
+  /* ─── CONTACT SECTION ─── */
+  .contact-section {
+    padding: 120px 40px;
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .contact-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(36px, 5vw, 56px);
+    line-height: 1.15;
+    margin-bottom: 20px;
+  }
+
+  .contact-title em {
+    font-style: normal;
+    color: var(--blue);
+  }
+
+  .contact-desc {
+    font-size: 17px;
+    color: var(--gray-500);
+    line-height: 1.7;
+    margin-bottom: 40px;
+  }
+
+  .contact-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 16px 32px;
+    border-radius: 100px;
+    transition: all 0.3s;
+    border: 1px solid var(--gray-200);
+    color: var(--black);
+  }
+
+  .contact-link:hover {
+    border-color: var(--blue);
+    color: var(--blue);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px var(--blue-glow);
+  }
+
+  .contact-link.primary {
+    background: var(--blue);
+    color: white;
+    border-color: var(--blue);
+  }
+
+  .contact-link.primary:hover {
+    background: var(--blue-hover);
+    box-shadow: 0 8px 30px rgba(0, 56, 255, 0.3);
+    color: white;
+  }
+
+  .contact-frizi {
+    margin-top: 60px;
+    opacity: 0.8;
+  }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    padding: 40px;
+    background: var(--black);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .footer-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    color: white;
+  }
+
+  .footer-logo .blue { color: var(--blue); }
+
+  .footer-text {
+    font-size: 13px;
+    color: var(--gray-600);
+  }
+
+  .footer-socials {
+    display: flex;
+    gap: 16px;
+  }
+
+  .footer-socials a {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--gray-700);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gray-500);
+    transition: all 0.3s;
+  }
+
+  .footer-socials a:hover {
+    border-color: var(--blue);
+    color: var(--blue);
+    background: rgba(0, 56, 255, 0.08);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    .project-card {
+      grid-template-columns: 1fr;
+    }
+    .project-card.reverse { direction: ltr; }
+    .project-thumbnail { min-height: 280px; }
+    .about-inner { grid-template-columns: 1fr; gap: 40px; }
+    .about-visual { order: -1; }
+    .coming-soon-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .hero-frizi { display: none; }
+  }
+
+  @media (max-width: 600px) {
+    .hero { padding: 100px 24px 60px; }
+    .projects-section, .contact-section { padding: 80px 24px; }
+    .about-section { padding: 80px 24px; }
+    .project-info { padding: 32px; }
+    .footer { flex-direction: column; gap: 16px; text-align: center; }
+  }
+
+  /* ─── Smooth reveals ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav class="nav" id="nav">
+  <div class="nav-logo">vanesa<span class="blue">frz</span></div>
+  <ul class="nav-links">
+    <li><a href="#projects">Proyectos</a></li>
+    <li><a href="#about">Sobre mí</a></li>
+    <li><a href="#contact" class="nav-cta">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <div class="hero-content">
+    <p class="hero-claim-top">UX/UI & Product Designer</p>
+    <h1 class="hero-name">vanesa<span class="blue">frz</span></h1>
+    <h2 class="hero-claim">De crear historias<br>a <em>diseñarlas</em>.</h2>
+    <p class="hero-sub">
+      Diseñadora de producto digital con background en edición de vídeo y marketing. 
+      Creo experiencias que conectan con las personas.
+    </p>
+    <div class="hero-buttons">
+      <a href="#projects" class="btn-primary">
+        Ver proyectos
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="#contact" class="btn-secondary">Hablemos</a>
+    </div>
+  </div>
+
+  <!-- Frizi floating -->
+  <div class="hero-frizi">
+    <svg width="100" height="130" viewBox="0 0 280 360" fill="none" opacity="0.8">
+      <g transform="translate(140, 120)">
+        <ellipse cx="0" cy="-42" rx="22" ry="36" fill="white" opacity="0.15" transform="rotate(0)"/>
+        <ellipse cx="0" cy="-42" rx="22" ry="36" fill="white" opacity="0.15" transform="rotate(51.4)"/>
+        <ellipse cx="0" cy="-42" rx="22" ry="36" fill="white" opacity="0.15" transform="rotate(102.8)"/>
+        <ellipse cx="0" cy="-42" rx="22" ry="36" fill="white" opacity="0.15" transform="rotate(154.3)"/>
+        <ellipse cx="0" cy="-42" rx="22" ry="36" fill="white" opacity="0.15" transform="rotate(205.7)"/>
+        <ellipse cx="0" cy="-42" rx="22" ry="36" fill="white" opacity="0.15" transform="rotate(257.1)"/>
+        <ellipse cx="0" cy="-42" rx="22" ry="36" fill="white" opacity="0.15" transform="rotate(308.6)"/>
+        <circle r="30" fill="white" opacity="0.08"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="hero-scroll-indicator">
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ═══════════ PROJECTS ═══════════ -->
+<section class="projects-section" id="projects">
+  <div class="section-header reveal">
+    <div class="section-label">Proyectos</div>
+    <h2 class="section-title">Trabajo seleccionado</h2>
+  </div>
+
+  <!-- PROJECT 1: Museek -->
+  <div class="project-card reveal">
+    <div class="project-thumbnail-wrap">
+      <div class="project-thumbnail museek-thumb">
+        <div class="museek-visual">
+          <div class="museek-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+              <path d="M9 19V6l12-3v13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="6" cy="19" r="3" stroke="white" stroke-width="2"/>
+              <circle cx="18" cy="16" r="3" stroke="white" stroke-width="2"/>
+            </svg>
+          </div>
+          <div style="font-family: Syne, sans-serif; font-weight: 800; font-size: 22px; color: white; margin-top: 4px;">Museek</div>
+          <div class="museek-phones">
+            <div class="phone-mock">
+              <div class="phone-notch"></div>
+              <div class="phone-content">
+                <div class="phone-line" style="width: 60%;"></div>
+                <div class="phone-line" style="width: 80%;"></div>
+                <div class="phone-block"></div>
+                <div class="phone-block" style="height: 16px;"></div>
+              </div>
+            </div>
+            <div class="phone-mock center">
+              <div class="phone-notch"></div>
+              <div class="phone-content">
+                <div class="phone-line" style="width: 50%;"></div>
+                <div class="phone-block" style="height: 40px; background: rgba(0,56,255,0.2);"></div>
+                <div class="phone-line" style="width: 70%;"></div>
+                <div class="phone-block" style="height: 20px;"></div>
+                <div class="phone-block" style="height: 12px; background: rgba(0,56,255,0.3); border-radius: 6px;"></div>
+              </div>
+            </div>
+            <div class="phone-mock">
+              <div class="phone-notch"></div>
+              <div class="phone-content">
+                <div class="phone-block" style="height: 36px;"></div>
+                <div class="phone-line" style="width: 70%;"></div>
+                <div class="phone-line" style="width: 50%;"></div>
+                <div class="phone-block" style="height: 16px;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="project-info">
+      <div class="project-tag">UX Research · Concept</div>
+      <h3 class="project-name">Museek</h3>
+      <p class="project-desc">
+        Una app que ayuda a jóvenes a descubrir museos y exposiciones cercanas, 
+        gamificando la experiencia cultural al convertir cada visita en un escape room virtual.
+      </p>
+      <div class="project-tags">
+        <span>User Research</span>
+        <span>Entrevistas</span>
+        <span>Personas</span>
+        <span>User Flows</span>
+        <span>Low-fi Prototype</span>
+      </div>
+      <a href="#" class="project-link">
+        Ver caso de estudio
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- PROJECT 2: Korean Air -->
+  <div class="project-card reverse reveal">
+    <div class="project-thumbnail-wrap">
+      <div class="project-thumbnail korean-thumb">
+        <div class="korean-visual">
+          <div class="korean-badge">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5z" stroke="#0057B8" stroke-width="2"/><path d="M2 17l10 5 10-5" stroke="#0057B8" stroke-width="2"/><path d="M2 12l10 5 10-5" stroke="#0057B8" stroke-width="2"/></svg>
+            Korean Air
+          </div>
+          <div class="korean-screens">
+            <div class="korean-screen">
+              <div class="korean-header"><div class="korean-header-line"></div></div>
+              <div class="korean-body">
+                <div class="korean-line" style="width: 60%;"></div>
+                <div class="korean-card-el"></div>
+                <div class="korean-line" style="width: 80%;"></div>
+                <div class="korean-line" style="width: 40%;"></div>
+                <div class="korean-btn"></div>
+              </div>
+            </div>
+            <div class="korean-screen main">
+              <div class="korean-header" style="height: 32px;"><div class="korean-header-line" style="width: 50px;"></div></div>
+              <div class="korean-body">
+                <div class="korean-line" style="width: 70%;"></div>
+                <div class="korean-card-el" style="height: 40px;"></div>
+                <div class="korean-line" style="width: 55%;"></div>
+                <div class="korean-card-el" style="height: 24px;"></div>
+                <div class="korean-btn" style="height: 18px; border-radius: 6px;"></div>
+              </div>
+            </div>
+            <div class="korean-screen">
+              <div class="korean-header"><div class="korean-header-line"></div></div>
+              <div class="korean-body">
+                <div class="korean-card-el" style="height: 36px;"></div>
+                <div class="korean-line" style="width: 70%;"></div>
+                <div class="korean-line" style="width: 50%;"></div>
+                <div class="korean-card-el"></div>
+                <div class="korean-btn"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="project-info">
+      <div class="project-tag">UX/UI Redesign · Heurísticas</div>
+      <h3 class="project-name">Korean Air</h3>
+      <p class="project-desc">
+        Rediseño de la app de Korean Air basado en un análisis heurístico. 
+        Mejora de la usabilidad, navegación y experiencia general de reserva de vuelos.
+      </p>
+      <div class="project-tags">
+        <span>Evaluación Heurística</span>
+        <span>UI Design</span>
+        <span>Usabilidad</span>
+        <span>Rediseño</span>
+      </div>
+      <a href="#" class="project-link">
+        Ver caso de estudio
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- Coming soon projects -->
+  <div class="coming-soon-grid reveal">
+    <div class="coming-soon-card">
+      <div class="coming-soon-content">
+        <div class="coming-soon-number">03</div>
+        <div class="coming-soon-label">Próximamente</div>
+      </div>
+    </div>
+    <div class="coming-soon-card">
+      <div class="coming-soon-content">
+        <div class="coming-soon-number">04</div>
+        <div class="coming-soon-label">Próximamente</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ ABOUT ═══════════ -->
+<section class="about-section" id="about">
+  <div class="about-inner">
+    <div class="about-visual reveal">
+      <div class="about-avatar-area">
+        <div class="about-avatar-placeholder">
+          Tu foto aquí<br>
+          <span style="font-size: 12px; color: var(--gray-600);">280 × 320px</span>
+        </div>
+        <!-- Frizi peeking -->
+        <div class="about-frizi">
+          <svg width="60" height="70" viewBox="0 0 90 90" fill="none">
+            <g transform="translate(45, 45)">
+              <ellipse cx="0" cy="-20" rx="10" ry="18" fill="#0038FF" opacity="0.9" transform="rotate(0)"/>
+              <ellipse cx="0" cy="-20" rx="10" ry="18" fill="#0038FF" opacity="0.9" transform="rotate(51.4)"/>
+              <ellipse cx="0" cy="-20" rx="10" ry="18" fill="#0038FF" opacity="0.9" transform="rotate(102.8)"/>
+              <ellipse cx="0" cy="-20" rx="10" ry="18" fill="#0038FF" opacity="0.9" transform="rotate(154.3)"/>
+              <ellipse cx="0" cy="-20" rx="10" ry="18" fill="#0038FF" opacity="0.9" transform="rotate(205.7)"/>
+              <ellipse cx="0" cy="-20" rx="10" ry="18" fill="#0038FF" opacity="0.9" transform="rotate(257.1)"/>
+              <ellipse cx="0" cy="-20" rx="10" ry="18" fill="#0038FF" opacity="0.9" transform="rotate(308.6)"/>
+              <circle r="14" fill="#FFD43B"/>
+              <circle cx="-5" cy="-2" r="3" fill="#0A0A0A"/>
+              <circle cx="5" cy="-2" r="3" fill="#0A0A0A"/>
+              <circle cx="-4" cy="-3" r="1" fill="white"/>
+              <circle cx="6" cy="-3" r="1" fill="white"/>
+              <path d="M-5 4 Q0 9 5 4" stroke="#0A0A0A" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-text reveal">
+      <div class="section-label">Sobre mí</div>
+      <h2 class="about-title">De crear historias<br>a <em>diseñarlas</em></h2>
+      <p class="about-bio">
+        Soy Vanesa Ferrer Corzo, UX/UI & Product Designer. Vengo del mundo de la edición 
+        de vídeo y el marketing digital, donde aprendí que cada pieza de comunicación 
+        cuenta una historia. Ahora aplico esa misma mentalidad narrativa al diseño de 
+        productos digitales: entender a las personas, definir el problema y crear 
+        experiencias que conecten.
+      </p>
+      <p class="about-bio">
+        Actualmente en formación intensiva en Product Design, con foco en research, 
+        prototipado y diseño de interfaces. Buscando mi primera oportunidad en el sector.
+      </p>
+
+      <div class="about-details">
+        <div class="about-detail">
+          <div class="about-detail-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1116 0z" stroke="#3D6BFF" stroke-width="2"/><circle cx="12" cy="10" r="3" stroke="#3D6BFF" stroke-width="2"/></svg>
+          </div>
+          España
+        </div>
+        <div class="about-detail">
+          <div class="about-detail-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5z" stroke="#3D6BFF" stroke-width="2"/><path d="M2 17l10 5 10-5" stroke="#3D6BFF" stroke-width="2"/></svg>
+          </div>
+          Formación en Product Design
+        </div>
+        <div class="about-detail">
+          <div class="about-detail-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="#3D6BFF" stroke-width="2"/></svg>
+          </div>
+          Abierta a oportunidades
+        </div>
+      </div>
+
+      <div class="about-skills">
+        <span class="skill-tag">UX Research</span>
+        <span class="skill-tag">UI Design</span>
+        <span class="skill-tag">Figma</span>
+        <span class="skill-tag">Prototyping</span>
+        <span class="skill-tag">Design Thinking</span>
+        <span class="skill-tag">User Testing</span>
+        <span class="skill-tag">Heurísticas</span>
+        <span class="skill-tag">Edición de vídeo</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CONTACT ═══════════ -->
+<section class="contact-section" id="contact">
+  <div class="reveal">
+    <div class="section-label">Contacto</div>
+    <h2 class="contact-title">¿Tienes un proyecto<br>en <em>mente</em>?</h2>
+    <p class="contact-desc">
+      Estoy buscando mi primera oportunidad como UX/UI Designer. 
+      Si crees que puedo encajar en tu equipo, me encantaría hablar contigo.
+    </p>
+    <div class="contact-buttons">
+      <a href="mailto:tu@email.com" class="contact-link primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="2"/><path d="M22 7l-10 7L2 7" stroke="currentColor" stroke-width="2"/></svg>
+        Escríbeme
+      </a>
+      <a href="https://linkedin.com/in/vanesafrz" class="contact-link" target="_blank">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6z" stroke="currentColor" stroke-width="2"/><rect x="2" y="9" width="4" height="12" stroke="currentColor" stroke-width="2"/><circle cx="4" cy="4" r="2" stroke="currentColor" stroke-width="2"/></svg>
+        LinkedIn
+      </a>
+    </div>
+
+    <!-- Frizi waving -->
+    <div class="contact-frizi">
+      <svg width="80" height="100" viewBox="0 0 280 360" fill="none">
+        <g transform="translate(140, 120)">
+          <ellipse cx="0" cy="-42" rx="22" ry="36" fill="#0038FF" stroke="#0A0A0A" stroke-width="3" transform="rotate(0)"/>
+          <ellipse cx="0" cy="-42" rx="22" ry="36" fill="#0038FF" stroke="#0A0A0A" stroke-width="3" transform="rotate(51.4)"/>
+          <ellipse cx="0" cy="-42" rx="22" ry="36" fill="#0038FF" stroke="#0A0A0A" stroke-width="3" transform="rotate(102.8)"/>
+          <ellipse cx="0" cy="-42" rx="22" ry="36" fill="#0038FF" stroke="#0A0A0A" stroke-width="3" transform="rotate(154.3)"/>
+          <ellipse cx="0" cy="-42" rx="22" ry="36" fill="#0038FF" stroke="#0A0A0A" stroke-width="3" transform="rotate(205.7)"/>
+          <ellipse cx="0" cy="-42" rx="22" ry="36" fill="#0038FF" stroke="#0A0A0A" stroke-width="3" transform="rotate(257.1)"/>
+          <ellipse cx="0" cy="-42" rx="22" ry="36" fill="#0038FF" stroke="#0A0A0A" stroke-width="3" transform="rotate(308.6)"/>
+          <circle r="30" fill="#FFD43B" stroke="#0A0A0A" stroke-width="3"/>
+          <circle cx="-10" cy="-5" r="7" fill="#0A0A0A"/>
+          <circle cx="10" cy="-5" r="7" fill="#0A0A0A"/>
+          <circle cx="-7" cy="-8" r="2.5" fill="white"/>
+          <circle cx="13" cy="-8" r="2.5" fill="white"/>
+          <path d="M-12 10 Q0 22 12 10" stroke="#0A0A0A" stroke-width="3" fill="none" stroke-linecap="round"/>
+        </g>
+        <!-- Waving arm -->
+        <g transform="translate(55, 85)">
+          <path d="M40 30 Q15 0 10 -25" stroke="#0A0A0A" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <circle cx="10" cy="-28" r="10" fill="white" stroke="#0A0A0A" stroke-width="2.5"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="footer">
+  <div class="footer-logo">vanesa<span class="blue">frz</span></div>
+  <div class="footer-text">© 2026 Vanesa Ferrer Corzo</div>
+  <div class="footer-socials">
+    <a href="https://linkedin.com/in/vanesafrz" target="_blank" aria-label="LinkedIn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6z" stroke="currentColor" stroke-width="2"/><rect x="2" y="9" width="4" height="12" stroke="currentColor" stroke-width="2"/><circle cx="4" cy="4" r="2" stroke="currentColor" stroke-width="2"/></svg>
+    </a>
+    <a href="mailto:tu@email.com" aria-label="Email">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="2"/><path d="M22 7l-10 7L2 7" stroke="currentColor" stroke-width="2"/></svg>
+    </a>
+  </div>
+</footer>
+
+<!-- ═══════════ SCRIPTS ═══════════ -->
+<script>
+  // Nav scroll effect
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Reveal on scroll
+  const revealElements = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+  revealElements.forEach(el => revealObserver.observe(el));
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
